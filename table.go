@@ -44,6 +44,8 @@ type Table struct {
 	// Rows holds a slice of string slices representing rows and columns
 	Rows []Row
 
+	Prefix string
+
 	Spacing int
 }
 
@@ -54,6 +56,7 @@ func (t *Table) Write(w io.Writer) error {
 		ColumnSizes: columnSizes,
 		Newline:     true,
 		Spacing:     t.Spacing,
+		Prefix:      t.Prefix,
 	}
 
 	for _, row := range t.Rows {
@@ -135,17 +138,21 @@ type RowPrintConfig struct {
 	ColumnSizes []int
 
 	Spacing int
+
+	Prefix string
 }
 
 func PrintRow(w io.Writer, row Row, cfg *RowPrintConfig) error {
 	var columnSizes []int
 	newLine := false
 	spacing := ""
+	prefix := ""
 
 	if cfg != nil {
 		columnSizes = cfg.ColumnSizes
 		newLine = cfg.Newline
 		spacing = getCellPadding("", cfg.Spacing)
+		prefix = cfg.Prefix
 	}
 
 	// we write into buf rather than into w directly so we can discard it in case
@@ -168,8 +175,12 @@ func PrintRow(w io.Writer, row Row, cfg *RowPrintConfig) error {
 
 	// print columns
 	for i, column := range row {
-		padding := ""
 
+		if _, err := buf.Write([]byte(prefix)); err != nil {
+			return err
+		}
+
+		padding := ""
 		if columnSizes != nil {
 			padding = getCellPadding(column.Value, columnSizes[i])
 		}

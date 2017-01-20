@@ -12,6 +12,7 @@ import (
 func main() {
 	table := table.Table{
 		Spacing: 5,
+		Prefix:  "\t",
 		Rows: []table.Row{
 			table.Row{
 				table.Column{
