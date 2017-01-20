@@ -42,6 +42,20 @@ func main() {
 					Underline: true,
 				},
 			},
+			table.Row{
+				table.Column{
+					Value: "This is a rather long line",
+				},
+				table.Column{
+					Value:      "col2",
+					Color:      table.Warn,
+					RightAlign: true,
+				},
+				table.Column{
+					Value:      "This is special",
+					Attributes: []color.Attribute{color.FgBlack, color.BgWhite, color.BlinkSlow},
+				},
+			},
 		},
 	}
 

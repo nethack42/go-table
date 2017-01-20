@@ -18,6 +18,9 @@ type Column struct {
 	// Value holds the string value of the column
 	Value string
 
+	// Attributes can be used instead of Color, Italic, Underline and Bold
+	Attributes []color.Attribute
+
 	// Importance holds the values importance.
 	Color color.Attribute
 
@@ -203,16 +206,21 @@ func PrintColumn(w io.Writer, c Column, padding string) error {
 
 	attr = append(attr, c.Color)
 
-	if c.Bold {
-		attr = append(attr, color.Bold)
-	}
+	if c.Attributes == nil {
+		if c.Bold {
+			attr = append(attr, color.Bold)
+		}
 
-	if c.Underline {
-		attr = append(attr, color.Underline)
-	}
+		if c.Underline {
+			attr = append(attr, color.Underline)
+		}
 
-	if c.Italic {
-		attr = append(attr, color.Italic)
+		if c.Italic {
+			attr = append(attr, color.Italic)
+		}
+
+	} else {
+		attr = c.Attributes
 	}
 
 	printer := color.New(attr...).SprintFunc()
