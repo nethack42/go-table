@@ -15,14 +15,14 @@ func main() {
 		Rows: []table.Row{
 			table.Row{
 				table.Column{
-					Value: "col1",
-					Color: color.FgWhite,
+					Value: "Cyan",
+					Color: color.FgCyan,
 				},
 				table.Column{
-					Value: "col2adfasdfasdf",
+					Value: "This is a bit longer",
 				},
 				table.Column{
-					Value: "col3",
+					Value: "I'm bold",
 					Bold:  true,
 				},
 			},
@@ -32,12 +32,12 @@ func main() {
 					Italic: true,
 				},
 				table.Column{
-					Value:      "col2",
-					Color:      table.Warn,
+					Value:      "right-aligned",
 					RightAlign: true,
+					Italic:     true,
 				},
 				table.Column{
-					Value:     "col3",
+					Value:     "Error",
 					Color:     table.Error,
 					Underline: true,
 				},
@@ -47,7 +47,7 @@ func main() {
 					Value: "This is a rather long line",
 				},
 				table.Column{
-					Value:      "col2",
+					Value:      "Warning",
 					Color:      table.Warn,
 					RightAlign: true,
 				},
