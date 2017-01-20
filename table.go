@@ -41,9 +41,6 @@ type Column struct {
 type Row []Column
 
 type Table struct {
-	// Header represents an optional header row
-	Header *Row
-
 	// Rows holds a slice of string slices representing rows and columns
 	Rows []Row
 
